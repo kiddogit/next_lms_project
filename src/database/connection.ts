@@ -8,15 +8,15 @@ if(!MONGODB_CS){
 
 const dbConnect  = async () => {
   if(mongoose.connection.readyState === 1){
-    console.log("Dtatabase already connected!")
+    console.log("Dtatabase already connected!!")
     return;
   }
   // console.log(mongoose.connection.readyState)
   try {
     await mongoose.connect(MONGODB_CS)
-    console.log("Database connected succefully ")
+    console.log("Database connected succefully 😄")
   } catch (error) {
-    console.log("Error connecting... ", error)
+    console.log("Error connecting..  😭", error)
   }
 }
 
