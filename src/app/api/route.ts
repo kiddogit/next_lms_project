@@ -9,7 +9,7 @@ export async function GET(){
     email : "alka.rajbanshi.11@gmail.com",
     username : "Alka123",
     googleid : "123456789",
-    profileImage : "ThisisImage"
+    profileImage : "ThisIsImage"
   })
   
   return Response.json({
