@@ -1,3 +1,5 @@
+
+
 import dbConnect from "@/database/connection"
 import Category from "@/database/models/category.schema"
 
@@ -25,7 +27,7 @@ export async function createCategory(req:Request){
 } catch (error) {
   console.log(error)
   return Response.json({
-    message : "Something wen wrong !!"
+    message : "Something went wrong !!"
   },{
     status : 500
   })
