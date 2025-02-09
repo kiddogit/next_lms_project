@@ -16,8 +16,8 @@ export async function createCategory(req:Request){
     },{status:400})
   }
   await Category.create({
-    name : name,
-    description : description
+    name,
+    description
   })
   return Response.json({
     message : "Category Created successfully !"
@@ -35,14 +35,26 @@ export async function createCategory(req:Request){
 }
 
 export async function getCategories(){
-  await dbConnect()
-  const categories = await Category.find()
+  try {
+    await dbConnect()
+  const categories = await Category.find() // returns array, findOne --> return object, findById --> return object
   if(categories.length === 0){
     return Response.json({
       message : "No categories found"
     },{
       status : 404
     })
-
+  }
+  return Response.json({
+    message : "Category fetched successfully !!",
+    data : categories
+  }, {
+    status : 200
+  })
+  } catch (error) {
+    console.log(error)
+    return Response.json({
+        messsage : "Something went wrong!!"
+    },{status:500})
   }
 }
