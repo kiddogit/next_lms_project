@@ -12,14 +12,20 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks"
   //  const {data:categories} = await fetchCategories()
 
   const dispatch = useAppDispatch()
-  const {categories} = useAppSelector((store)=>store.categories)
+  const [categories] = useAppSelector((store)=>store.categories)
    
    const openModal = () => setIsModalOpen(true)
    const closeModal = ()=>setIsModalOpen(false)
    console.log(isModalOpen)
 
+   const deleteCat = (id:string)=>{
+    if(id){
+      dispatch(deleteCategory(id))
+    }
+   }
+
    useEffect(() => {
-   dispatchEvent(fetchCategories())
+   dispatch(fetchCategories())
    },[])
    
     return ( 
