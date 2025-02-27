@@ -7,11 +7,9 @@ import { deleteCategory, fetchCategories } from "@/store/category/categorySlice"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 
 
-
-
  function Categories(){
   const [isModalOpen, setIsModalOpen] = useState(false)
- const [searchTerm,setSearchTerm] = useState<string>("")
+  const [searchTerm, setSearchTerm] = useState<string>("")
   const dispatch = useAppDispatch()
  
    const {categories} = useAppSelector((store)=>store.categories)
@@ -23,16 +21,18 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks"
   // }
   // openModalRef.current = openModal
 
-   const deleteCat = (id:string)=>{
+  const deleteCat = (id:string)=>{
     if(id){
       dispatch(deleteCategory(id))
     }
-   }
+  }
+
    useEffect( ()=>{
     dispatch(fetchCategories())
    },[])
 
    const filtredCategories = categories.filter((category)=>category.name.toLowerCase().includes(searchTerm.toLowerCase()) || category._id.toLowerCase().includes(searchTerm.toLowerCase()))
+
     return ( 
    <div className="flex flex-col">
   <div className=" overflow-x-auto">

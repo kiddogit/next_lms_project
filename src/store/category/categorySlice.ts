@@ -32,6 +32,12 @@ const categorySlice = createSlice({ // returns object  {actions : "sjldfj"}
           if(index !== -1){
             state.categories.splice(index,1)
           }
+        },
+        updateCategory(state,action){
+            const index = state.categories.findIndex((category)=>category._id == action.payload.id)
+            if(index!== -1){
+                state.categories[index] = action.payload
+            }
         }
     }
 })
@@ -83,6 +89,24 @@ export function deleteCategory(id:string){
                 dispatch(setStatus(Status.Error))
             }
         } catch (error) {
+            dispatch(setStatus(Status.Error))
+        }
+    }
+}
+
+export function updateCategory(id:string){
+    return async function updateCategoryThunk(dispatch:AppDispatch,getState){
+        try {
+            const {category} = getState().category
+            const response = await API.put("/category/" + id, category)
+            if(response.status === 200){
+                dispatch(setStatus(Status.Success))
+                dispatch(updateCategory({...category, _id : id}))
+            }else{
+                dispatch(setStatus(Status.Error))
+            }
+        } catch (error) {
+            console.log(error)
             dispatch(setStatus(Status.Error))
         }
     }
