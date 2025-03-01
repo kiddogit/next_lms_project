@@ -1,3 +1,4 @@
+import { Lesson } from '@/database/models/lesson.schema';
 
 import mongoose,{Schema} from "mongoose";
 
@@ -32,6 +33,6 @@ const lessonSchema = new Schema<ILesson>({
   }
 })
 
-const Lesson = mongoose.model("Lesson", lessonSchema)
+const Lesson = mongoose.models.Lesson || mongoose.model("Lesson", lessonSchema)
 
 export default Lesson

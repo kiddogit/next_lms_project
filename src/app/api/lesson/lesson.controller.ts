@@ -4,19 +4,18 @@ import dbConnect from "@/database/connection";
 import Course from "@/database/models/course.schema";
 import Lesson from "@/database/models/lesson.schema";
 
-export async function createCourse(req:Request){
+export async function createLesson(req:Request){
   try{
     await dbConnect()
-    const {title, description, price, duration, category} = await req.json()
-    const data = await Course.create({
+    const {title, description, videoUrl, course} = await req.json()
+     const data = await Course.create({
       title,
       description,
-      price,
-      duration,
-      category
+      videoUrl,
+      course
     })
     return Response.json({
-      message : "Course created!!",
+      message : "Lesson created!!",
       data
     },{status:201})
 
@@ -28,13 +27,13 @@ export async function createCourse(req:Request){
   }
 }
 
-export async function fetchCourses() {
+export async function fetchLessons() {
   try {
     await dbConnect()
-    const data = await Course.find().populate("category")   //return array
+    const data = await Lesson.find().populate("course")   //return array
     if(data.length === 0) {
       return Response.json({
-        message : "no course found"
+        message : "no lesson found"
       },{status : 404})
     }
     return Response.json({
@@ -49,13 +48,13 @@ export async function fetchCourses() {
   }
 }
 
-export async function fetchCourse(id:string){
+export async function fetchLesson(id:string){
   try {
     await dbConnect()
-   const data = await Course.findById(id)   //return in object
+   const data = await Lesson.findById(id)   //return in object
    if(data) {
     return Response.json({
-      message : "no course with that id found"
+      message : "no lesson with that id found"
     },{status : 404})
   }
   return Response.json({
@@ -70,14 +69,12 @@ export async function fetchCourse(id:string){
   }
 }
 
-export async function deleteCourse(id:string){
+export async function deleteLesson(id:string){
   try {
     await dbConnect()
-   await Course.findByIdAndDelete(id)   //return in object
-   //delete lessons too
-   await Lesson.deleteMany({course : id}) 
+   await Lesson.findByIdAndDelete(id)   //return in object
    return Response.json({
-    message : "courses deleted!!",
+    message : "lesson deleted!!",
   },{status:200})
   } catch (error) {
     console.log(error)
