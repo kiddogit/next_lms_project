@@ -34,11 +34,11 @@ export const authOptions: AuthOptions = {
                 }
             },
             async jwt({token} : {token : IToken}){
-                console.log(token,"TOKEN")
                 await dbConnect()
                 const user = await User.findOne({
                     email : token.email
                 })
+                console.log(user,"USER")
                 if(user){
                     token.id = user._id
                     token.role = user.role

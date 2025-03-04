@@ -17,6 +17,7 @@ function AdminLayout({children} :Readonly<{children : React.ReactNode}>){
     }
   },[session,status])
   if(status === "loading" || status === "unauthenticated") return <p>Loading...</p>   // content nadekhaune...
+
   return (
     <Dashboard>
       {children}
