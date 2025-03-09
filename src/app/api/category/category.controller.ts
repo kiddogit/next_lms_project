@@ -1,5 +1,4 @@
 
-
 import dbConnect from "@/database/connection"
 import Category from "@/database/models/category.schema"
 import authMiddleware from "../../../../middleware/auth.middleware"

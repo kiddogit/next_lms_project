@@ -1,11 +1,12 @@
 import dbConnect from "@/database/connection";
 import User from "@/database/models/user.schema";
 import NextAuth, { Session } from "next-auth";
-import { AuthOptions } from "next-auth";
+import { } from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
 
-interface IToken{name : string, email:string,picture:string,sub:string,id:string,role:string}
+interface IToken{name : string,email:string,picture:string,sub:string,id:string,role:string}
 
+//@ts-ignore
 export const authOptions: AuthOptions = {
     // Configure one or more authentication providers
         providers : [
@@ -55,5 +56,6 @@ export const authOptions: AuthOptions = {
         }
 }
 
+// @ts-ignore
 const handler = NextAuth(authOptions)
 export {handler as GET, handler as POST}

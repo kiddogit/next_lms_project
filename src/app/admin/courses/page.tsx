@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
@@ -9,22 +10,21 @@ import { redirect } from "next/navigation"
 
 function Courses(){
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [searchTerm,setSearchTerm] = useState<string>("")
+    const [searchTerm, setSearchTerm] = useState<string>("")
     const {courses} = useAppSelector((store)=>store.courses)
     const dispatch = useAppDispatch()
    const openModal = useCallback( () => setIsModalOpen(true),[])
    const closeModal = useCallback( ()=>setIsModalOpen(false),[])
-   
    useEffect(()=>{
     dispatch(fetchCourses())
    },[])
 
    const filteredCourses = courses.filter((course)=>course.title.toLowerCase().includes(searchTerm.toLowerCase()) || course.price.toString().includes(searchTerm) || course.category.name.toLowerCase().includes(searchTerm.toLowerCase()))
 
-   const handleDelete = (id:string)=>{
-      id && dispatch(deleteCourse(id))
+   const handleDelete=(id:string)=>{
+    id && dispatch(deleteCourse(id))
    }
-   
+
     return (
 
         <div className="flex flex-col">
@@ -63,10 +63,10 @@ function Courses(){
                     filteredCourses.map((course)=>{
                         return ( 
                             <tr key={course.title}  className="bg-white transition-all duration-500 hover:bg-gray-50">
-                            <td onClick={()=>redirect(`/admin/courses/${course?._id}/lessons`)} className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">{course?.title}</td>
+                            <td onClick={()=>redirect(`/admin/courses/${course?._id}/lessons`)}  className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">{course?.title}</td>
                             <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {course?.price}</td>
                             <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {course?.duration}</td>
-                            <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {course?.category?.name}</td>
+                            <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{course?.category?.name}</td>
                             <td className="p-5 whitespace-nowrap text-sm leading-6 font-medium text-gray-900"> {new Date(course.createdAt.toString()).toLocaleDateString()}</td>
                             <td className=" p-5 ">
                               <div className="flex items-center gap-1">

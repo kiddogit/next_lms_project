@@ -1,7 +1,6 @@
 "use client"
 
-import { ICategory } from "@/database/models/category.schema"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Modal from "../components/modal/Modal"
 import { deleteCategory, fetchCategories } from "@/store/category/categorySlice"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"

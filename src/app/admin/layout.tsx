@@ -6,17 +6,29 @@ import { redirect } from "next/navigation"
 import { useEffect } from "react"
 
 
-function AdminLayout({children} :Readonly<{children : React.ReactNode}>){
+// function AdminLayout({children} :Readonly<{children : React.ReactNode}>){
+//   const {data:session,status} = useSession()
+//   useEffect(() => {
+//     console.log(status,"STATUS")
+//     if(status === "loading") return;
+//     // @ts-ignore
+//     if(!session || session.user.role !=="admin"){
+//       redirect("/")
+//     }
+//   },[session,status])
+//   if(status === "loading" || status === "unauthenticated") return <p>Loading...</p>   // content nadekhaune...
+
+function AdminLayout({children}:Readonly<{children : React.ReactNode}>){
   const {data:session,status} = useSession()
-  useEffect(() => {
-    console.log(status,"STATUS")
-    if(status === "loading") return;
-    // @ts-ignore
-    if(!session || session.user.role !=="admin"){
-      redirect("/")
-    }
+  useEffect(()=>{
+      console.log(status,"STATUS")
+      if(status === "loading") return;
+      // @ts-ignore
+      if(!session || session.user.role !=="admin"){
+          redirect("/")
+      }
   },[session,status])
-  if(status === "loading" || status === "unauthenticated") return <p>Loading...</p>   // content nadekhaune...
+  if(status === "loading" || status==="unauthenticated") return <p>Loading...</p>
 
   return (
     <Dashboard>

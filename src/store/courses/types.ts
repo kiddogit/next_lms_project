@@ -7,11 +7,12 @@ interface ICategory{
     description : string, 
     createdAt : string 
 }
+
 export interface ICourseForData{
     title : string, 
     description : string, 
     price : number, 
-    category : ICategory , 
+    category : ICategory | string, 
     duration : string,
     _id ?: string 
 }

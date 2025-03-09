@@ -1,5 +1,4 @@
 
-
 import dbConnect from "@/database/connection";
 import Course from "@/database/models/course.schema";
 import Lesson from "@/database/models/lesson.schema";
@@ -8,20 +7,21 @@ export async function createCourse(req:Request){
   try{
     await dbConnect()
     const {title, description, price, duration, category} = await req.json()
-    const data = await Course.create({
+    const createdData = await Course.create({
       title,
       description,
       price,
       duration,
       category
     })
+    const data = await Course.findById(createdData._id).populate("category")
     return Response.json({
       message : "Course created!!",
       data
     },{status:201})
 
   } catch (error) {
-    console.log(error)
+    // console.log(error)
     return Response.json({
       message : "Something went wrong"
     },{status : 500})

@@ -3,9 +3,9 @@
 import { fetchCategories, resetStatus } from "@/store/category/categorySlice"
 import { Status } from "@/store/category/types"
 import { createCourse } from "@/store/courses/courseSlice"
-import { ICourseForData } from "@/store/courses/types"
+import { ICourse, ICourseForData } from "@/store/courses/types"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, HTMLInputTypeAttribute, useEffect, useState } from "react"
 
 interface IModalProps{
   closeModal : ()=>void, 
@@ -13,15 +13,15 @@ interface IModalProps{
 
 const Modal:React.FC<IModalProps> =  ({closeModal})=>{
     const dispatch = useAppDispatch()
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const {status} = useAppSelector((store)=>store.courses)
     const {categories} = useAppSelector((store)=>store.categories)
     const [data,setData] = useState<ICourseForData>({
-        title : "", 
-        description : "", 
-        price :0, 
-        category : "", 
-        duration : ""
+      title : "", 
+      description : "", 
+      price :0, 
+      category : "", 
+      duration : ""
     })
 
     const handleChange = (e:ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>)=>{
@@ -31,9 +31,8 @@ const Modal:React.FC<IModalProps> =  ({closeModal})=>{
             [name] : value
         })
     }
-
     useEffect(()=>{
-        if(categories.length === 0){
+        if(categories.length ===0){
             dispatch(fetchCategories())
         }
     },[])
@@ -42,12 +41,12 @@ const Modal:React.FC<IModalProps> =  ({closeModal})=>{
         e.preventDefault()
         dispatch(createCourse(data))
     }
-    
+
     useEffect(()=>{
-      console.log(status,"STATUS")
+      // console.log(status,"STATUS")
       if(status === Status.Success){
         setLoading(false)
-        closeModal(); 
+        closeModal();
         dispatch(resetStatus())
       }
     },[status])
